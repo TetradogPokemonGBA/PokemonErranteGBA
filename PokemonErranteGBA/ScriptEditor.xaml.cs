@@ -15,6 +15,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using PokemonGBAFrameWork;
 
 namespace PokemonErranteGBA
 {
@@ -23,9 +24,19 @@ namespace PokemonErranteGBA
 	/// </summary>
 	public partial class ScriptEditor : UserControl
 	{
+		PokemonErrante.Pokemon pokemonActual;
 		public ScriptEditor()
 		{
 			InitializeComponent();
 		}
+
+		public PokemonErrante.Pokemon PokemonActual {
+			get{return pokemonActual;}
+			set{
+				pokemonActual=value;
+				//actualizo los datos
+			}
+		}
+	
 	}
 }
