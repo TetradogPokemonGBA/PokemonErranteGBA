@@ -1,0 +1,48 @@
+<Window x:Class="PokemonErranteGBA.Window1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:PokemonErranteGBA"
+        Title="Pokemon Errante GBA" Height="300" Width="300"
+>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="20"/>
+			<RowDefinition/>
+		</Grid.RowDefinitions>
+		<Menu>
+			<MenuItem x:Name="miCargar" Header="_Cargar" Click="MiCargar_Click" />
+			<MenuItem  Header="_Exportar">
+				<MenuItem x:Name="miExportarScript" Header="_Script XSE"/>
+			</MenuItem>
+			<MenuItem x:Name="miSobre" Header="Sobre" Click="MiSobre_Click"/>
+		</Menu>
+		<TabControl Grid.Row="1">
+			<TabItem Header="Zona Script">
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition/>
+						<ColumnDefinition/>
+					</Grid.ColumnDefinitions>
+					<Grid>
+						<Grid.RowDefinitions>
+							<RowDefinition/>
+							<RowDefinition Height="25"/>
+						</Grid.RowDefinitions>
+						<Border BorderThickness="30">
+							<Image x:Name="imgPokemon"/>
+						</Border>
+						<TextBlock x:Name="txtInfoPokemon" Grid.Row="1"/>
+					</Grid>
+					<Grid Grid.Column="1">
+						<Grid.RowDefinitions>
+							<RowDefinition/>
+							<RowDefinition Height="25"/>
+						</Grid.RowDefinitions>
+						<local:ScriptEditor x:Name="sePokemonActual"/>
+						<ComboBox x:Name="cmbPokedex" Grid.Row="1" IsTextSearchEnabled="True" SelectionChanged="CmbPokedex_SelectionChanged"/>
+					</Grid>
+				</Grid>
+			</TabItem>
+		</TabControl>
+	</Grid>
+</Window>
