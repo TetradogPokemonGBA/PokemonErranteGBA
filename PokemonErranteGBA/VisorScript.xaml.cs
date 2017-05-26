@@ -24,22 +24,24 @@ namespace PokemonErranteGBA
 	/// </summary>
 	public partial class VisorScript : Window
 	{
-		public VisorScript(RomData rom,string script)
+		public VisorScript(RomData rom,string nombrePokemon,string script)
 		{
 			InitializeComponent();
-			Title="Script-"+rom.Rom.Nombre;
+			Title="Script-"+rom.Rom.Nombre+"-"+nombrePokemon;
 			txtScritp.Text=script;
 			switch (rom.Edicion.AbreviacionRom) {
 				case AbreviacionCanon.AXV:
-					
+					Background=Brushes.LightCoral;
 					break;
 				case AbreviacionCanon.AXP:
+					Background=Brushes.LightSkyBlue;
 					break;
 				case AbreviacionCanon.BPE:
 					Background=Brushes.LightSeaGreen;
 					break;
 				case AbreviacionCanon.BPR:
-					Background=Brushes.LightCoral;
+					
+					Background=Brushes.LightSalmon;
 					break;
 				case AbreviacionCanon.BPG:
 					Background=Brushes.LightGreen;

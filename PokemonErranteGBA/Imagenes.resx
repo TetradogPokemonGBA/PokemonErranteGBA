@@ -412,4 +412,50 @@
         nIV1YtReiVURCofqP//Z
 </value>
   </data>
+  <data name="Congelado-Off" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABQAAAAICAYAAAD5nd/tAAAABGdBTUEAAYagMeiWXwAAAAlwSFlzAAAO
+        xAAADsQBlSsOGwAAAFJJREFUKFNj+A8Eu3fv/r969WqKMMgMEGBAN+zHjx9gjE8MFxtkFgOMgy4JY+MS
+        wyYPwjgNxCaGbAgyGyYPwmS7EEYjy4Mw9Q2keqRQN9n8/w8AYQ0IwBhWIkIAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="Dormido-Off" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABQAAAAICAYAAAD5nd/tAAAABGdBTUEAAYagMeiWXwAAAAlwSFlzAAAO
+        xAAADsQBlSsOGwAAAElJREFUKFNj+A8E69at+z9v3jyKMMgMEGBANuzHjx9wjKwYXQyXOpBZDMgC6JpI
+        EYPhwWMgDMPkYJj6LiQ3UrCxwZFC3WTz/z8AW7T37MsHqpcAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="Envenenado-Off" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABQAAAAICAYAAAD5nd/tAAAABGdBTUEAAYagMeiWXwAAAAlwSFlzAAAO
+        xAAADsQBlSsOGwAAAFxJREFUKFOtUkEKgDAM67/7jv61t2qEQIwK4iyEZkkXBl3MXlU1mbkEZKBCw7r7
+        BGrqP2kAsoIHN1XzIJ3zO5dAwjVy7c6BVy9kV+4+sRR4N/9pKc6JYyn/fpuZDXPUyr/c2+kFAAAAAElF
+        TkSuQmCC
+</value>
+  </data>
+  <data name="Envenenamiento_grave-Off" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABQAAAAICAYAAAD5nd/tAAAABGdBTUEAAYagMeiWXwAAAAlwSFlzAAAO
+        xAAADsQBlSsOGwAAAGVJREFUKFOtklEKwDAIQz2I9/A23v8WbvkIpCkbY1shRCM+Cm3MeapqMvOTwMAJ
+        hXX3ImY6v8ogsEIbHVLIHETXHV5sA1KeoXd/BGTvGVxrn98CUVMK0VqdO/BXj+I1BdbP32bmAIWIBeJQ
+        5S7DAAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="Paralizado-Off" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABQAAAAICAYAAAD5nd/tAAAABGdBTUEAAYagMeiWXwAAAAlwSFlzAAAO
+        xAAADsQBlSsOGwAAAFhJREFUKFNj+A8Ehw8f/r9mzRqKMMgMEGBANuzHjx9wjKwYXQyXOpBZDMgC6JpI
+        EYNh2hsIw9jEYOLofGSM04XYxGBsbGIwjBEpyJLoYoQMBEcKdZPN//8AgxILq1Ig5OUAAAAASUVORK5C
+        YII=
+</value>
+  </data>
+  <data name="Quemado-Off" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABQAAAAICAYAAAD5nd/tAAAABGdBTUEAAYagMeiWXwAAAAlwSFlzAAAO
+        xAAADsQBlSsOGwAAAFxJREFUKFO9klEKACEIRD29x/Cc/k1rMBCDS7ELCY90tCEwwxMRAXf/RXlUmJpl
+        5mStNecMYb+8jAUHNd9pymdDwh6588I6u8udpmyX0mmsVZ9Lefs26+AJ5QEAA5Ib2AzBPNLiAAAAAElF
+        TkSuQmCC
+</value>
+  </data>
 </root>

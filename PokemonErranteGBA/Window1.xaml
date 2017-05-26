@@ -37,7 +37,7 @@
 				<Grid>
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition />
-						<ColumnDefinition />
+						<ColumnDefinition Width="300" />
 					</Grid.ColumnDefinitions>
 					<Border
 						BorderThickness="15">
@@ -51,17 +51,20 @@
 							<RowDefinition
 								Height="25" />
 						</Grid.RowDefinitions>
-						<local:ScriptEditor
-							x:Name="sePokemonActual" />
+						<Viewbox VerticalAlignment="Bottom" HorizontalAlignment="Right" MaxWidth="300">
+							<local:ScriptEditor
+								x:Name="sePokemonActual" />
+						</Viewbox>
 						<ComboBox
 							x:Name="cmbPokedex"
 							Grid.Row="1"
 							IsTextSearchEnabled="True"
 							SelectionChanged="CmbPokedex_SelectionChanged"
-							Width="300"
-							HorizontalAlignment="Right" 
-							IsEditable="True" 
-							IsEnabled="False"/>
+							HorizontalAlignment="Right"
+							IsEditable="True"
+							IsEnabled="False"
+					    	Width="300"
+						/>
 					</Grid>
 				</Grid>
 			</TabItem>

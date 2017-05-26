@@ -37,36 +37,44 @@ namespace PokemonErranteGBA
 			if(opn.ShowDialog().GetValueOrDefault())
 			{
 				try{
-				rom=new RomData(opn.FileName);
+					rom=new RomData(opn.FileName);
+					
+					if(rom.Rutas!=null)
+					{
+						miExportarScript.IsEnabled=true;
+						cmbPokedex.IsEnabled=true;
+						sePokemonActual.RomActual=rom;
+						rom.Pokedex[0].OrdenNacional=0;//missigno
+						rom.Pokedex.Sort();
+						cmbPokedex.ItemsSource=rom.Pokedex;
+						cmbPokedex.SelectedIndex=1;
+						switch (rom.Edicion.AbreviacionRom) {
+							case AbreviacionCanon.AXV:
+								Background=Brushes.LightCoral;
+								break;
+							case AbreviacionCanon.AXP:
+								Background=Brushes.LightSkyBlue;
+								break;
+							case AbreviacionCanon.BPE:
+								Background=Brushes.LightSeaGreen;
+							//	this.Icon=Imagenes.EsmeraldaIco.ToImage().Source;
+								break;
+							case AbreviacionCanon.BPR:
+								Background=Brushes.LightSalmon;
+								
+								//this.Icon=Imagenes.RojoFuegoIco.ToImage().Source;
+								break;
+							case AbreviacionCanon.BPG:
+								Background=Brushes.LightGreen;
+								//this.Icon=Imagenes.VerdeHojaIco.ToImage().Source;
+								break;
 				
-				if(rom.Rutas!=null){
-					miExportarScript.IsEnabled=true;
-					cmbPokedex.IsEnabled=true;
-					sePokemonActual.RomActual=rom;
-					rom.Pokedex[0].OrdenNacional=0;//missigno
-					rom.Pokedex.Sort();
-					cmbPokedex.ItemsSource=rom.Pokedex;
-					cmbPokedex.SelectedIndex=1;
-					switch (rom.Edicion.AbreviacionRom) {
-						case AbreviacionCanon.AXV:
-							break;
-						case AbreviacionCanon.AXP:
-							break;
-						case AbreviacionCanon.BPE:
-							//Application.Current.MainWindow.Icon;
-							break;
-						case AbreviacionCanon.BPR:
-							break;
-						case AbreviacionCanon.BPG:
-							break;
-						default:
-							throw new ArgumentOutOfRangeException();
+						}
 					}
-				}
-				else{
-					rom=null;
-					MessageBox.Show("La rom no es compatible por falta investigación...prueba en futuras versiones...");
-				}
+					else{
+						rom=null;
+						MessageBox.Show("La rom no es compatible por falta investigación...prueba en futuras versiones...");
+					}
 				}catch{
 					MessageBox.Show("Hay problemas para cargar la rom actual...","Atención",MessageBoxButton.OK,MessageBoxImage.Error);
 				}
@@ -88,7 +96,7 @@ namespace PokemonErranteGBA
 			if(pokemonActual!=null)
 			{
 				imgPokemon.SetImage(pokemonActual.Sprites.SpritesFrontales[0]);
-				sePokemonActual.PokemonActual=new PokemonErrante.Pokemon(pokemonActual); 
+				sePokemonActual.PokemonActual=new PokemonErrante.Pokemon(pokemonActual);
 			}
 		}
 		void MiExportarScript_Click(object sender, RoutedEventArgs e)
