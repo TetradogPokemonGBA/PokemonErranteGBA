@@ -40,7 +40,9 @@ namespace PokemonErranteGBA
 				rom=new RomData(opn.FileName);
 				
 				if(rom.Rutas!=null){
-			
+					miExportarScript.IsEnabled=true;
+					cmbPokedex.IsEnabled=true;
+					sePokemonActual.RomActual=rom;
 					rom.Pokedex[0].OrdenNacional=0;//missigno
 					rom.Pokedex.Sort();
 					cmbPokedex.ItemsSource=rom.Pokedex;
@@ -63,7 +65,7 @@ namespace PokemonErranteGBA
 				}
 				else{
 					rom=null;
-					MessageBox.Show("La rom no es compatible por desgracia...falta investigación...prueba en futuras versiones...");
+					MessageBox.Show("La rom no es compatible por falta investigación...prueba en futuras versiones...");
 				}
 				}catch{
 					MessageBox.Show("Hay problemas para cargar la rom actual...","Atención",MessageBoxButton.OK,MessageBoxImage.Error);
@@ -93,7 +95,7 @@ namespace PokemonErranteGBA
 		{
 			SaveFileDialog sfdScriptActual=new SaveFileDialog();
 			if(sfdScriptActual.ShowDialog().GetValueOrDefault())
-				System.IO.File.WriteAllText(sfdScriptActual.FileName,PokemonErrante.Pokemon.Script(rom.Edicion,rom.Compilacion,sePokemonActual.PokemonActual));
+				System.IO.File.WriteAllText(sfdScriptActual.FileName+".rbc",sePokemonActual.GetScript());
 		}
 	}
 }

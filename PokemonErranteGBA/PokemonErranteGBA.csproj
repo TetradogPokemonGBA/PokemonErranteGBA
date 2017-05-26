@@ -42,9 +42,6 @@
     <Reference Include="Microsoft.CSharp">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
-    <Reference Include="PokemonGBAFrameWork">
-      <HintPath>..\..\..\..\Desktop\Mis Programas\PokemonGBAFrameWork\PokemonGBAFrameWork\bin\Release\PokemonGBAFrameWork.dll</HintPath>
-    </Reference>
     <Reference Include="PresentationCore">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
@@ -85,6 +82,10 @@
       <DependentUpon>ScriptEditor.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="VisorScript.xaml.cs">
+      <DependentUpon>VisorScript.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Window1.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>Window1.xaml</DependentUpon>
@@ -92,6 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="ScriptEditor.xaml" />
+    <Page Include="VisorScript.xaml" />
     <Page Include="Window1.xaml" />
   </ItemGroup>
   <ItemGroup>
@@ -99,6 +101,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Imagenes.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Desktop\Mis Programas\PokemonGBAFrameWork\PokemonGBAFrameWork\PokemonGBAFrameWork.csproj">
+      <Project>{52cf96db-a3aa-47d9-b0ba-7bb2834b68c7}</Project>
+      <Name>PokemonGBAFrameWork</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

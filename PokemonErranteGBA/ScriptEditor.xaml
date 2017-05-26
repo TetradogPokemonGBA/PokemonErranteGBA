@@ -8,15 +8,17 @@
 		</Grid.RowDefinitions>
 		<Grid>
 		</Grid>
-		<Grid Grid.Row="1" Width="270" HorizontalAlignment="Right">
+		<Grid Grid.Row="1" Width="300" HorizontalAlignment="Right">
 			<Grid.ColumnDefinitions>
 					<ColumnDefinition/>
 				<ColumnDefinition/>
 				<ColumnDefinition/>
+			<ColumnDefinition/>
 			</Grid.ColumnDefinitions>
-			<TextBlock Text="Offset in Rom: 0x"/>
+			<TextBlock Text="Offset in Rom: 0x" FontSize="9" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 		<TextBox x:Name="txtOffset" IsReadOnly="True" Grid.Column="1" />
-		<Button x:Name="btnInsertarQuitarScriptBasico" Content="Poner en rom" Grid.Column="2"/>
+		<Button x:Name="btnInsertarQuitarScriptBasico" Content="" Grid.Column="2" IsEnabled="False" Click="BtnInsertarQuitarScriptBasico_Click"/>
+		<Button x:Name="btnVerScript" Content="Ver script" Grid.Column="3" Click="BtnVerScript_Click" IsEnabled="False"/>
 		</Grid>
 	</Grid>
 </UserControl>
