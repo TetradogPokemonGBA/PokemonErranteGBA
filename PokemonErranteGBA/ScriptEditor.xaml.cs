@@ -109,8 +109,8 @@ namespace PokemonErranteGBA
 
 		void PonEstado(object sender, MouseButtonEventArgs e)
 		{
-				SetEstadoPokemon();
-				BuscaScript();
+			SetEstadoPokemon();
+			BuscaScript();
 		}
 
 		void BtnInsertarQuitarScriptBasico_Click(object sender, RoutedEventArgs e)
@@ -137,7 +137,7 @@ namespace PokemonErranteGBA
 		}
 		void TxtNivel_TextChanged(object sender, TextChangedEventArgs e)
 		{
-			
+			if(!string.IsNullOrEmpty(txtNivel.Text)){
 			try {
 				PokemonActual.Nivel = int.Parse(txtNivel.Text);
 				if (PokemonActual.Nivel > 100)
@@ -152,7 +152,7 @@ namespace PokemonErranteGBA
 			}
 			
 			txtNivel.Text = pokemonActual.Nivel + "";
-			BuscaScript();
+			BuscaScript();}
 		}
 
 		void SetEstadoPokemon()
@@ -168,21 +168,22 @@ namespace PokemonErranteGBA
 
 		void TxtVida_TextChanged(object sender, TextChangedEventArgs e)
 		{
-	
-			try {
-				PokemonActual.Vida = int.Parse(txtVida.Text);
-				if (PokemonActual.Vida > short.MaxValue) {
-					pokemonActual.Vida = short.MaxValue;
+			
+			if(!string.IsNullOrEmpty(txtVida.Text)){
+				try {
+					PokemonActual.Vida = int.Parse(txtVida.Text);
+					if (PokemonActual.Vida > short.MaxValue) {
+						pokemonActual.Vida = short.MaxValue;
+						
+					} else if (pokemonActual.Vida < 0) {
+						pokemonActual.Vida = 0;
+					}
 					
-				} else if (pokemonActual.Vida < 0) {
-					pokemonActual.Vida = 0;
+				} catch {
+					pokemonActual.Vida = short.MaxValue;
 				}
-				
-			} catch {
-				pokemonActual.Vida = 1;
-			}
-			txtVida.Text = pokemonActual.Vida + "";
-			BuscaScript();
+				txtVida.Text = pokemonActual.Vida + "";
+				BuscaScript();}
 		}
 		void TxtTurnosDormido_TextChanged(object sender, TextChangedEventArgs e)
 		{

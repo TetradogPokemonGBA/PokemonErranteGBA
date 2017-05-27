@@ -44,10 +44,9 @@ namespace PokemonErranteGBA
 						miExportarScript.IsEnabled=true;
 						cmbPokedex.IsEnabled=true;
 						sePokemonActual.RomActual=rom;
-						rom.Pokedex[0].OrdenNacional=0;//missigno
 						rom.Pokedex.Sort();
-						cmbPokedex.ItemsSource=rom.Pokedex;
-						cmbPokedex.SelectedIndex=1;
+						cmbPokedex.ItemsSource=rom.Pokedex.Filtra((p)=>p.OrdenNacional>0);
+						cmbPokedex.SelectedIndex=0;
 						switch (rom.Edicion.AbreviacionRom) {
 							case AbreviacionCanon.AXV:
 								Background=Brushes.LightCoral;
