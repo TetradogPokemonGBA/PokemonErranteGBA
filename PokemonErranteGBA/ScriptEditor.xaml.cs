@@ -68,17 +68,17 @@ namespace PokemonErranteGBA
 				pokemonActual = value;
 				//actualizo los datos
 				if (string.IsNullOrEmpty(txtNivel.Text)) {
-					pokemonActual.Nivel = 50;
-					txtNivel.Text = pokemonActual.Nivel + "";
+					pokemonActual.Nivel =new Word( (ushort)50);
+					txtNivel.Text = ((ushort)pokemonActual.Nivel)+"";
 				} else
 					try {
-					pokemonActual.Nivel = int.Parse(txtNivel.Text);
+					pokemonActual.Nivel =new Word(  ushort.Parse(txtNivel.Text));
 				} catch {
 				}
 				try{
 					pokemonActual.Dormido=int.Parse(txtTurnosDormido.Text);
 				}catch{txtTurnosDormido.Text="0";}
-				txtVida.Text = pokemonActual.PokemonErrante.CalculaHp(pokemonActual.Nivel) + "";
+				txtVida.Text = ((ushort)pokemonActual.PokemonErrante.CalculaHp(pokemonActual.Nivel)).ToString();
 				txtVidaTotal.Text = " /" + txtVida.Text;
 				SetEstadoPokemon();
 				BuscaScript();
@@ -87,7 +87,7 @@ namespace PokemonErranteGBA
 		
 		int BuscaScript()
 		{
-			int offset = RomActual.Rom.Data.SearchArray(PokemonErrante.Pokemon.BytesScript(romActual.Edicion, romActual.Compilacion, PokemonActual));
+			int offset = RomActual.Rom.Data.SearchArray(PokemonErrante.Pokemon.GetScript(romActual.Edicion, romActual.Compilacion, PokemonActual).GetDeclaracion(RomActual.Rom));
 			if (offset > 0) {
 				txtOffset.Text = (Gabriel.Cat.Hex)offset;
 				btnInsertarQuitarScriptBasico.Content = ESTA;
@@ -100,7 +100,7 @@ namespace PokemonErranteGBA
 
 		public string GetScript()
 		{
-			return PokemonErrante.Pokemon.Script(romActual.Edicion, romActual.Compilacion, PokemonActual);
+			return PokemonErrante.Pokemon.GetScript(romActual.Edicion, romActual.Compilacion, PokemonActual).GetDeclaracionXSE();
 		}
 		void BtnVerScript_Click(object sender, RoutedEventArgs e)
 		{
@@ -115,7 +115,7 @@ namespace PokemonErranteGBA
 
 		void BtnInsertarQuitarScriptBasico_Click(object sender, RoutedEventArgs e)
 		{
-			byte[] bytes = PokemonErrante.Pokemon.BytesScript(romActual.Edicion, romActual.Compilacion, PokemonActual);
+			byte[] bytes = PokemonErrante.Pokemon.GetScript(romActual.Edicion, romActual.Compilacion, PokemonActual).GetDeclaracion(RomActual.Rom);
 			if (btnInsertarQuitarScriptBasico.Content.ToString() == ESTA) {
 				RomActual.Rom.Data.Remove(BuscaScript(), bytes.Length);
 				
@@ -138,21 +138,22 @@ namespace PokemonErranteGBA
 		void TxtNivel_TextChanged(object sender, TextChangedEventArgs e)
 		{
 			if(!string.IsNullOrEmpty(txtNivel.Text)){
-			try {
-				PokemonActual.Nivel = int.Parse(txtNivel.Text);
-				if (PokemonActual.Nivel > 100)
-					PokemonActual.Nivel = 100;
-				else if (PokemonActual.Nivel < 1)
-					PokemonActual.Nivel = 1;
-				
-				txtVidaTotal.Text = " /" + pokemonActual.PokemonErrante.CalculaHp(pokemonActual.Nivel);
-				
-			} catch {
-				pokemonActual.Nivel = 1;
-			}
-			
-			txtNivel.Text = pokemonActual.Nivel + "";
-			BuscaScript();}
+				try {
+					PokemonActual.Nivel = ushort.Parse(txtNivel.Text);
+					if (PokemonActual.Nivel > 100)
+						PokemonActual.Nivel = (ushort)100;
+					else if (PokemonActual.Nivel < 1)
+						PokemonActual.Nivel = (ushort)1;
+					
+					txtVidaTotal.Text = " /" + (ushort)pokemonActual.PokemonErrante.CalculaHp(pokemonActual.Nivel);
+					
+				} catch {
+					pokemonActual.Nivel = (ushort)1;
+				}
+				txtNivel.TextChanged-=TxtNivel_TextChanged;
+				txtNivel.Text = ((ushort)pokemonActual.Nivel) + "";
+				txtNivel.TextChanged+=TxtNivel_TextChanged;
+				BuscaScript();}
 		}
 
 		void SetEstadoPokemon()
@@ -171,12 +172,12 @@ namespace PokemonErranteGBA
 			
 			if(!string.IsNullOrEmpty(txtVida.Text)){
 				try {
-					PokemonActual.Vida = int.Parse(txtVida.Text);
+					PokemonActual.Vida = ushort.Parse(txtVida.Text);
 					if (PokemonActual.Vida > short.MaxValue) {
 						pokemonActual.Vida = short.MaxValue;
 						
 					} else if (pokemonActual.Vida < 0) {
-						pokemonActual.Vida = 0;
+						pokemonActual.Vida =(ushort) 0;
 					}
 					
 				} catch {

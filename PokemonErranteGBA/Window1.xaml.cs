@@ -74,8 +74,8 @@ namespace PokemonErranteGBA
 						rom=null;
 						MessageBox.Show("La rom no es compatible por falta investigación...prueba en futuras versiones...");
 					}
-				}catch{
-					MessageBox.Show("Hay problemas para cargar la rom actual...","Atención",MessageBoxButton.OK,MessageBoxImage.Error);
+				}catch(Exception m){
+					MessageBox.Show("Hay problemas para cargar la rom actual...\n"+m.Message,"Atención",MessageBoxButton.OK,MessageBoxImage.Error);
 				}
 				
 			}else if(rom!=null){
