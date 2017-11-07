@@ -44,7 +44,9 @@ namespace PokemonErranteGBA
 			for(int i=0;i<ugEstados.Children.Count;i++)
 				((Gabriel.Cat.Wpf.SwitchImg)ugEstados.Children[i]).MouseLeftButtonUp+=PonEstado;
 			RomActual=null;
-
+			cmbTurnosDormido.ItemsSource=Enum.GetNames(typeof(PokemonErrante.Pokemon.Dormido));
+			cmbTurnosDormido.SelectedIndex=0;
+			cmbTurnosDormido.SelectionChanged+=PonTurnosDormido;
 		}
 
 		public RomData RomActual {
@@ -56,7 +58,7 @@ namespace PokemonErranteGBA
 				btnInsertarQuitarScriptBasico.IsEnabled = romActual != null;
 				btnVerScript.IsEnabled = romActual != null;
 				txtVida.IsEnabled=romActual!=null;
-				txtTurnosDormido.IsEnabled=romActual!=null;
+				cmbTurnosDormido.IsEnabled=romActual!=null;
 				txtNivel.IsEnabled=romActual!=null;
 				for(int i=0;i<ugEstados.Children.Count;i++)
 					((Gabriel.Cat.Wpf.SwitchImg)ugEstados.Children[i]).IsEnabled=romActual!=null;
@@ -75,9 +77,9 @@ namespace PokemonErranteGBA
 					pokemonActual.Nivel =new Word(  ushort.Parse(txtNivel.Text));
 				} catch {
 				}
-				try{
-					pokemonActual.Dormido=int.Parse(txtTurnosDormido.Text);
-				}catch{txtTurnosDormido.Text="0";}
+				
+				pokemonActual.TurnosDormido=(PokemonErrante.Pokemon.Dormido)cmbTurnosDormido.SelectedIndex;
+				
 				txtVida.Text = ((ushort)pokemonActual.PokemonErrante.CalculaHp(pokemonActual.Nivel)).ToString();
 				txtVidaTotal.Text = " /" + txtVida.Text;
 				SetEstadoPokemon();
@@ -98,13 +100,17 @@ namespace PokemonErranteGBA
 			return offset;
 		}
 
-		public string GetScript()
+		public string GetScriptString()
 		{
-			return PokemonErrante.Pokemon.GetScript(romActual.Edicion, romActual.Compilacion, PokemonActual).GetDeclaracionXSE();
+			return GetScript().GetDeclaracionXSE(true,"ScriptPokemonErrante");
+		}
+		public Script GetScript()
+		{
+			return PokemonErrante.Pokemon.GetScript(romActual.Edicion, romActual.Compilacion, PokemonActual);
 		}
 		void BtnVerScript_Click(object sender, RoutedEventArgs e)
 		{
-			new VisorScript(romActual,PokemonActual.PokemonErrante.Nombre, GetScript()).Show();
+			new VisorScript(romActual,PokemonActual.PokemonErrante.Nombre, GetScriptString()).Show();
 		}
 
 		void PonEstado(object sender, MouseButtonEventArgs e)
@@ -115,7 +121,7 @@ namespace PokemonErranteGBA
 
 		void BtnInsertarQuitarScriptBasico_Click(object sender, RoutedEventArgs e)
 		{
-			byte[] bytes = PokemonErrante.Pokemon.GetScript(romActual.Edicion, romActual.Compilacion, PokemonActual).GetDeclaracion(RomActual.Rom);
+			byte[] bytes = GetScript().GetDeclaracion(RomActual.Rom);
 			if (btnInsertarQuitarScriptBasico.Content.ToString() == ESTA) {
 				RomActual.Rom.Data.Remove(BuscaScript(), bytes.Length);
 				
@@ -173,36 +179,29 @@ namespace PokemonErranteGBA
 			if(!string.IsNullOrEmpty(txtVida.Text)){
 				try {
 					PokemonActual.Vida = ushort.Parse(txtVida.Text);
-					if (PokemonActual.Vida > short.MaxValue) {
-						pokemonActual.Vida = short.MaxValue;
+					if (PokemonActual.Vida > ushort.MaxValue) {
+						pokemonActual.Vida = ushort.MaxValue;
 						
 					} else if (pokemonActual.Vida < 0) {
 						pokemonActual.Vida =(ushort) 0;
 					}
 					
 				} catch {
-					pokemonActual.Vida = short.MaxValue;
+					pokemonActual.Vida = ushort.MaxValue;
 				}
-				txtVida.Text = pokemonActual.Vida + "";
+				txtVida.Text = (ushort)pokemonActual.Vida + "";
 				BuscaScript();}
 		}
-		void TxtTurnosDormido_TextChanged(object sender, TextChangedEventArgs e)
+
+		void PonTurnosDormido(object sender, SelectionChangedEventArgs e)
 		{
-			
-			if(!string.IsNullOrEmpty(txtTurnosDormido.Text)){
-				try {
-					
-					PokemonActual.Dormido = int.Parse(txtTurnosDormido.Text);
-					
-				} catch {
-					pokemonActual.Dormido = 0;
-				}
-				txtTurnosDormido.TextChanged-=TxtTurnosDormido_TextChanged;
-				txtTurnosDormido.Text = pokemonActual.Dormido + "";
-				txtTurnosDormido.TextChanged+=TxtTurnosDormido_TextChanged;
-				swDormido.EstadoOn=pokemonActual.Dormido>0;
-				BuscaScript();}
-			
+
+
+			pokemonActual.TurnosDormido=(PokemonErrante.Pokemon.Dormido)cmbTurnosDormido.SelectedIndex;
+
+			swDormido.EstadoOn=pokemonActual.TurnosDormido!=PokemonErrante.Pokemon.Dormido.NoDormido;
+			BuscaScript();
 		}
 	}
+
 }

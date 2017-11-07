@@ -32,6 +32,7 @@ namespace PokemonErranteGBA
 		}
 		void MiCargar_Click(object sender, RoutedEventArgs e)
 		{
+			Word aux0=new Word(0);
 			OpenFileDialog opn=new OpenFileDialog();
 			opn.Filter="Pokemon GBA|*.gba";
 			if(opn.ShowDialog().GetValueOrDefault())
@@ -45,7 +46,8 @@ namespace PokemonErranteGBA
 						cmbPokedex.IsEnabled=true;
 						sePokemonActual.RomActual=rom;
 						rom.Pokedex.Sort();
-						cmbPokedex.ItemsSource=rom.Pokedex.Filtra((p)=>p.OrdenNacional>0);
+						cmbPokedex.ItemsSource=rom.Pokedex.Filtra((p)=>p.OrdenNacional>aux0);
+						
 						cmbPokedex.SelectedIndex=0;
 						switch (rom.Edicion.AbreviacionRom) {
 							case AbreviacionCanon.AXV:
@@ -102,7 +104,7 @@ namespace PokemonErranteGBA
 		{
 			SaveFileDialog sfdScriptActual=new SaveFileDialog();
 			if(sfdScriptActual.ShowDialog().GetValueOrDefault())
-				System.IO.File.WriteAllText(sfdScriptActual.FileName+".rbc",sePokemonActual.GetScript());
+				System.IO.File.WriteAllText(sfdScriptActual.FileName+".rbc",sePokemonActual.GetScriptString());
 		}
 	}
 }

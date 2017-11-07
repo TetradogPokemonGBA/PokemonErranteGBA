@@ -79,9 +79,9 @@
 					Grid.Column="0"
 					Grid.Row="0"
 					Text="Turnos dormido:" />
-				<TextBox
-					x:Name="txtTurnosDormido"
-					TextChanged="TxtTurnosDormido_TextChanged"
+				<ComboBox
+					x:Name="cmbTurnosDormido"
+				
 					Grid.Column="1" />
 				<wpf:SwitchImg
 					x:Name="swDormido"
