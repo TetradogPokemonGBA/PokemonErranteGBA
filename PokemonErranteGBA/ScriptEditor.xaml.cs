@@ -16,6 +16,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using Gabriel.Cat.Extension;
+using Gabriel.Cat.S.Utilitats;
 using PokemonGBAFrameWork;
 
 namespace PokemonErranteGBA
@@ -91,7 +92,7 @@ namespace PokemonErranteGBA
 		{
 			int offset = RomActual.Rom.Data.SearchArray(PokemonErrante.Pokemon.GetScript(romActual.Edicion, romActual.Compilacion, PokemonActual).GetDeclaracion(RomActual.Rom));
 			if (offset > 0) {
-				txtOffset.Text = (Gabriel.Cat.Hex)offset;
+				txtOffset.Text = (Hex)offset;
 				btnInsertarQuitarScriptBasico.Content = ESTA;
 			} else {
 				txtOffset.Text = "";

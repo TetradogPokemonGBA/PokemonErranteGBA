@@ -8,6 +8,7 @@
  */
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,8 +17,10 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using Gabriel.Cat.Extension;
+using Gabriel.Cat.S.Extension;
 using Microsoft.Win32;
 using PokemonGBAFrameWork;
+
 namespace PokemonErranteGBA
 {
 	/// <summary>
@@ -45,28 +48,28 @@ namespace PokemonErranteGBA
 						miExportarScript.IsEnabled=true;
 						cmbPokedex.IsEnabled=true;
 						sePokemonActual.RomActual=rom;
-						rom.Pokedex.Sort();
+						rom.Pokedex.SortByQuickSort();
 						cmbPokedex.ItemsSource=rom.Pokedex.Filtra((p)=>p.OrdenNacional>aux0);
 						
 						cmbPokedex.SelectedIndex=0;
 						switch (rom.Edicion.AbreviacionRom) {
 							case AbreviacionCanon.AXV:
-								Background=Brushes.LightCoral;
+								Background= System.Windows.Media.Brushes.LightCoral;
 								break;
 							case AbreviacionCanon.AXP:
-								Background=Brushes.LightSkyBlue;
+								Background= System.Windows.Media.Brushes.LightSkyBlue;
 								break;
 							case AbreviacionCanon.BPE:
-								Background=Brushes.LightSeaGreen;
+								Background= System.Windows.Media.Brushes.LightSeaGreen;
 							//	this.Icon=Imagenes.EsmeraldaIco.ToImage().Source;
 								break;
 							case AbreviacionCanon.BPR:
-								Background=Brushes.LightSalmon;
+								Background= System.Windows.Media.Brushes.LightSalmon;
 								
 								//this.Icon=Imagenes.RojoFuegoIco.ToImage().Source;
 								break;
 							case AbreviacionCanon.BPG:
-								Background=Brushes.LightGreen;
+								Background= System.Windows.Media.Brushes.LightGreen;
 								//this.Icon=Imagenes.VerdeHojaIco.ToImage().Source;
 								break;
 				
@@ -96,7 +99,8 @@ namespace PokemonErranteGBA
 			Pokemon pokemonActual=cmbPokedex.SelectedItem as Pokemon;
 			if(pokemonActual!=null)
 			{
-				imgPokemon.SetImage(pokemonActual.Sprites.SpritesFrontales[0]);
+                Gabriel.Cat.Extension.ExtensionWpf.SetImage(imgPokemon,pokemonActual.Sprites.SpritesFrontales[0][0]);
+		
 				sePokemonActual.PokemonActual=new PokemonErrante.Pokemon(pokemonActual);
 			}
 		}
