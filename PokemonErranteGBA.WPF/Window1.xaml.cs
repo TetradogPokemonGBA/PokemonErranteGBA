@@ -107,7 +107,7 @@ namespace PokemonErranteGBA
 			if (pokemonActual!=null)
 			{
 				frames = pokemonActual.Sprites.Frontales.GetAnimacionImagenFrontal(pokemonActual.Sprites.PaletaNomal);
-				frames.RemoveFrame(0);
+				//frames.RemoveFrame(0);
 				frames.FrameChanged += (s, img) =>
 				{
 					Action act = () => imgPokemon.SetImage(img);
