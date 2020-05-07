@@ -69,6 +69,7 @@ namespace PokemonErranteGBA
 		public PokemonErrante.Pokemon PokemonActual {
 			get{ return pokemonActual; }
 			set {
+				Word maxVida;
 				pokemonActual = value;
 				//actualizo los datos
 				if (string.IsNullOrEmpty(txtNivel.Text)) {
@@ -83,8 +84,10 @@ namespace PokemonErranteGBA
 				}
 				
 				pokemonActual.TurnosDormido=(PokemonErrante.Pokemon.Dormido)cmbTurnosDormido.SelectedIndex;
-				
-				txtVida.Text = ((ushort)pokemonActual.Errante.Stats.CalculaHp(pokemonActual.Nivel)).ToString();
+				maxVida = ((ushort)pokemonActual.Errante.Stats.CalculaHp(pokemonActual.Nivel));
+				if (pokemonActual.Vida == default)
+					pokemonActual.Vida = maxVida;
+				txtVida.Text = maxVida.ToString();
 				txtVidaTotal.Text = " /" + txtVida.Text;
 				SetEstadoPokemon();
 				BuscaScript();
@@ -118,6 +121,7 @@ namespace PokemonErranteGBA
 
 		public Script GetScript()
 		{
+			SetEstadoPokemon();
 			return PokemonErrante.GetScript(romActual.Edicion,PokemonActual);
 		}
 		void BtnVerScript_Click(object sender, RoutedEventArgs e)
