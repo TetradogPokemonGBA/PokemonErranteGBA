@@ -7,6 +7,7 @@
  * Para cambiar esta plantilla use Herramientas | Opciones | Codificación | Editar Encabezados Estándar
  */
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -32,7 +33,9 @@ namespace PokemonErranteGBA
 		public static RomGba Rom { get; set; }
 		public static PokemonErrante.Mapa Mapa { get; set; }
 		public static string FileName { get; set; }
-		public MainWindow()
+        public static IEnumerable RutasSalto { get;  set; }
+
+        public MainWindow()
 		{
 			InitializeComponent();
 		}
@@ -48,7 +51,8 @@ namespace PokemonErranteGBA
 					Rom=new RomGba(opn.FileName);
 
 					Mapa = PokemonErrante.Mapa.Get(Rom);
-				
+					RutasSalto = PokemonGBAFramework.Core.Mapa.Basic.Bank.Get(Rom, PokemonErrante.Mapa.GetBank(Rom)).Maps;
+					visorRutas.Load(Mapa);
 						miExportarScript.IsEnabled=true;
 						cmbPokedex.IsEnabled=true;
 						sePokemonActual.RomActual=Rom;

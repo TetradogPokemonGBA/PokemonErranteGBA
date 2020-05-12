@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="PokemonErranteGBA.WPF.VisorRutas"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PokemonErranteGBA.WPF"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <StackPanel>
+        <Button x:Name="btnAñadir" Content="AñadirSalto" Click="btnAñadir_Click" IsEnabled="False" />
+        <Button x:Name="btnCheck" Content="CheckSaltos" Click="btnCheck_Click" IsEnabled="False" />
+        <Button x:Name="btnSave" Content="Save" Click="btnSave_Click" IsEnabled="False" />
+
+            <StackPanel x:Name="stkSaltos" MouseRightButtonDown="lstSaltos_MouseRightButtonDown" CanVerticallyScroll="True"/>
+
+    </StackPanel>
+</UserControl>

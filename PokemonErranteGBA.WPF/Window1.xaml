@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Window
-	x:Class="PokemonErranteGBA.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:PokemonErranteGBA"
-	Title="Pokemon Errante GBA v7.0.0-preview"
+	x:Class="PokemonErranteGBA.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:PokemonErranteGBA" xmlns:localWpf="clr-namespace:PokemonErranteGBA.WPF"
+    Title="Pokemon Errante GBA v7.0.0-preview"
 	MinHeight="400"
 	MinWidth="630"
 	Height="400"
@@ -30,8 +30,7 @@
 				Header="Sobre"
 				Click="MiSobre_Click" />
 		</Menu>
-		<TabControl
-			Grid.Row="1">
+		<TabControl Grid.Row="1">
 			<TabItem
 				Header="Zona Script">
 				<Grid>
@@ -68,6 +67,9 @@
 					</Grid>
 				</Grid>
 			</TabItem>
+            <TabItem Header="Zona Rutas">
+                <localWpf:VisorRutas x:Name="visorRutas"/>
+            </TabItem>
 		</TabControl>
 	</Grid>
 </Window>
