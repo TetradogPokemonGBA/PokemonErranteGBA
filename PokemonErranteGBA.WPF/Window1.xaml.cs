@@ -49,7 +49,7 @@ namespace PokemonErranteGBA
 			{
 				try{
 					Rom=new RomGba(opn.FileName);
-
+					FileName = opn.FileName;
 					Mapa = PokemonErrante.Mapa.Get(Rom);
 					RutasSalto = PokemonGBAFramework.Core.Mapa.Basic.Bank.Get(Rom, PokemonErrante.Mapa.GetBank(Rom)).Maps;
 					visorRutas.Load(Mapa);
