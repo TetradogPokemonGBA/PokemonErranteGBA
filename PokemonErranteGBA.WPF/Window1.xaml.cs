@@ -51,7 +51,7 @@ namespace PokemonErranteGBA
 					Rom=new RomGba(opn.FileName);
 					FileName = opn.FileName;
 					Mapa = PokemonErrante.Mapa.Get(Rom);
-					RutasSalto = PokemonGBAFramework.Core.Mapa.Basic.Bank.Get(Rom, PokemonErrante.Mapa.GetBank(Rom)).Maps;
+					RutasSalto =new object[] { "" }.AfegirValors( PokemonGBAFramework.Core.Mapa.Basic.Bank.Get(Rom, PokemonErrante.Mapa.GetBank(Rom)).Maps);
 					visorRutas.Load(Mapa);
 						miExportarScript.IsEnabled=true;
 						cmbPokedex.IsEnabled=true;
@@ -101,7 +101,7 @@ namespace PokemonErranteGBA
 		}
 		void MiSobre_Click(object sender, RoutedEventArgs e)
 		{
-			if(MessageBox.Show("Autor: Pikachu240\nLiencia:GNU GPL V3\nInvestigado por  Razhier de Wahack \n¿Quieres ver el código fuente?","Sobre la App",MessageBoxButton.YesNo,MessageBoxImage.Information)==MessageBoxResult.Yes)
+			if(MessageBox.Show("Autor: Pikachu240\nLiencia:GNU GPL V3\nInvestigado por  Razhier de Wahack \n¿Quieres ver el código fuente?","Sobre la App",MessageBoxButton.YesNo,MessageBoxImage.Information,MessageBoxResult.Yes)==MessageBoxResult.Yes)
 				new Uri("https://github.com/TetradogPokemonGBA/PokemonErranteGBA").Abrir();
 		}
 		void CmbPokedex_SelectionChanged(object sender, SelectionChangedEventArgs e)

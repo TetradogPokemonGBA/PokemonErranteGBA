@@ -4,57 +4,57 @@
     Title="Pokemon Errante GBA v7.0.0-preview"
 	MinHeight="400"
 	MinWidth="630"
-	Height="400"
-	Width="630"
+	Height="469"
+	Width="818"
 >
-	<Grid>
-		<Grid.RowDefinitions>
-			<RowDefinition
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition
 				Height="20" />
-			<RowDefinition />
-		</Grid.RowDefinitions>
-		<Menu>
-			<MenuItem
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Menu>
+            <MenuItem
 				x:Name="miCargar"
 				Header="_Cargar"
 				Click="MiCargar_Click" />
-			<MenuItem
+            <MenuItem
 				Header="_Exportar">
-				<MenuItem
+                <MenuItem
 					x:Name="miExportarScript"
 					Header="_Script XSE"
 					Click="MiExportarScript_Click" IsEnabled="False" />
-			</MenuItem>
-			<MenuItem
+            </MenuItem>
+            <MenuItem
 				x:Name="miSobre"
 				Header="Sobre"
 				Click="MiSobre_Click" />
-		</Menu>
-		<TabControl Grid.Row="1">
-			<TabItem
+        </Menu>
+        <TabControl Grid.Row="1">
+            <TabItem
 				Header="Zona Script">
-				<Grid>
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition />
-						<ColumnDefinition Width="300" />
-					</Grid.ColumnDefinitions>
-					<Border
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="300" />
+                    </Grid.ColumnDefinitions>
+                    <Border
 						BorderThickness="15">
-						<Image
+                        <Image
 							x:Name="imgPokemon" />
-					</Border>
-					<Grid
+                    </Border>
+                    <Grid
 						Grid.Column="1">
-						<Grid.RowDefinitions>
-							<RowDefinition />
-							<RowDefinition
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition
 								Height="25" />
-						</Grid.RowDefinitions>
-						<Viewbox VerticalAlignment="Bottom" HorizontalAlignment="Right" MaxWidth="300">
-							<local:ScriptEditor
+                        </Grid.RowDefinitions>
+                        <Viewbox VerticalAlignment="Bottom" HorizontalAlignment="Right" MaxWidth="300">
+                            <local:ScriptEditor
 								x:Name="sePokemonActual" />
-						</Viewbox>
-						<ComboBox
+                        </Viewbox>
+                        <ComboBox
 							x:Name="cmbPokedex"
 							Grid.Row="1"
 							IsTextSearchEnabled="True"
@@ -64,12 +64,12 @@
 							IsEnabled="False"
 					    	Width="300"
 						/>
-					</Grid>
-				</Grid>
-			</TabItem>
+                    </Grid>
+                </Grid>
+            </TabItem>
             <TabItem Header="Zona Rutas">
                 <localWpf:VisorRutas x:Name="visorRutas"/>
             </TabItem>
-		</TabControl>
-	</Grid>
+        </TabControl>
+    </Grid>
 </Window>

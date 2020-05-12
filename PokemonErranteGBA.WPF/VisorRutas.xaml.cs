@@ -29,16 +29,12 @@ namespace PokemonErranteGBA.WPF
 
         public void Load(PokemonErrante.Mapa mapa)
         {
-            Salto salto;
             Saltos.Clear();
             Saltos.AddRange(mapa.Saltos);
             stkSaltos.Children.Clear();
             for (int i = 0; i < mapa.Saltos.Count; i++)
             {
-
-                    salto = new Salto() { SaltoErrante = mapa.Saltos[i] };
-                    salto.Refresh();
-                stkSaltos.Children.Add(salto);
+                AddSalto(mapa.Saltos[i]);
 
             }
             btnAñadir.IsEnabled = true;
@@ -49,7 +45,7 @@ namespace PokemonErranteGBA.WPF
         {
             PokemonErrante.Mapa mapa = new PokemonErrante.Mapa();
             for (int i = 0; i < stkSaltos.Children.Count; i++)
-                (stkSaltos.Children[i] as Salto).Save();
+                ((stkSaltos.Children[i] as Viewbox).Child as Salto).Save();
 
             mapa.Saltos.AddRange(Saltos);
             return mapa;
@@ -57,12 +53,22 @@ namespace PokemonErranteGBA.WPF
 
         private void btnAñadir_Click(object sender, RoutedEventArgs e)
         {
+            PokemonErrante.Mapa.Salto salto;
             if (stkSaltos.Children.Count < PokemonErrante.Mapa.MAXSALTOS)
             {
-                stkSaltos.Children.Add(new Salto() { SaltoErrante=new PokemonErrante.Mapa.Salto() { Rutas = new byte[Saltos.First().Rutas.Length] } });
+                salto = Saltos.First().GetNew();
+                Saltos.Add(salto);
+                AddSalto(salto);
             }
         }
-
+        void AddSalto(PokemonErrante.Mapa.Salto saltoErrante)
+        {
+            Viewbox view = new Viewbox();
+            Salto salto = new Salto() { SaltoErrante =saltoErrante };
+            salto.Refresh();
+            view.Child = salto;
+            stkSaltos.Children.Add(view);
+        }
         private void btnCheck_Click(object sender=null, RoutedEventArgs e=null)
         {
             string mensaje = CheckMessage();
@@ -99,13 +105,16 @@ namespace PokemonErranteGBA.WPF
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
+            PokemonErrante.Mapa mapa;
             if (Save().Check != PokemonErrante.Mapa.TodoCorrecto)
             {
                 MessageBox.Show(CheckMessage());
             }
             else
             {
-                PokemonErrante.Mapa.Set(MainWindow.Rom, Save());
+                mapa = Save();
+                PokemonErrante.Mapa.Set(MainWindow.Rom, mapa);
+                Load(mapa);
                 MainWindow.Save();
             }
         }

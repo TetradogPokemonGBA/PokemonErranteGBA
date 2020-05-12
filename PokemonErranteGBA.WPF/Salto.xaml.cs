@@ -29,46 +29,27 @@ namespace PokemonErranteGBA.WPF
         {
             ComboBox cmbRutas;
             stkRutas.Children.Clear();
-            for (int i = 0; i < SaltoErrante.Rutas.Length && SaltoErrante.Rutas[i] != PokemonErrante.Mapa.MARCAFIN; i++)
+            for (int i = 0; i < SaltoErrante.Rutas.Length; i++)
             {
                 cmbRutas = new ComboBox();
+                cmbRutas.Width = 150;
                 cmbRutas.ItemsSource = MainWindow.RutasSalto;
-                cmbRutas.SelectedIndex = SaltoErrante.Rutas[i];
-                cmbRutas.MouseDoubleClick += Eliminar;
+                cmbRutas.SelectedIndex = SaltoErrante.Rutas[i]==byte.MaxValue?0: SaltoErrante.Rutas[i]+1;
                 stkRutas.Children.Add(cmbRutas);
             }
-            btnAñadir.IsEnabled = stkRutas.Children.Count < SaltoErrante.Rutas.Length;
         }
         public void Save()
         {
+            int aux;
             for (int i = 0; i < stkRutas.Children.Count; i++)
             {
-                SaltoErrante.Rutas[i] = (byte)(stkRutas.Children[i] as ComboBox).SelectedIndex;
+               aux= (stkRutas.Children[i] as ComboBox).SelectedIndex;
+                if (aux < 1)
+                    aux = byte.MaxValue+1;
+                SaltoErrante.Rutas[i] =(byte) (aux-1);
             }
-            for (int i = stkRutas.Children.Count; i < SaltoErrante.Rutas.Length; i++)
-                SaltoErrante.Rutas[i] = byte.MaxValue;
+
         }
 
-        private void btnAñadir_Click(object sender, RoutedEventArgs e)
-        {
-            ComboBox cmbRutas = new ComboBox();
-            cmbRutas.ItemsSource = MainWindow.RutasSalto;
-            cmbRutas.SelectedIndex = 0;
-            cmbRutas.MouseDoubleClick += Eliminar;
-        stkRutas.Children.Add(cmbRutas);
-            btnAñadir.IsEnabled = stkRutas.Children.Count<SaltoErrante.Rutas.Length;
-        }
-    void Eliminar(object s, EventArgs e)
-    {
-        Action act;
-
-        if (stkRutas.Children.Count > PokemonErrante.Mapa.MINSALTOS)
-            act = () => stkRutas.Children.Remove(s as UIElement);
-        else
-            act = () => MessageBox.Show("Como minimo tienen que haber  tres rutas!");
-
-        Dispatcher.BeginInvoke(act);
-
-    }
 }
 }

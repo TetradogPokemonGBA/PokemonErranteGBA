@@ -6,9 +6,5 @@
              xmlns:local="clr-namespace:PokemonErranteGBA.WPF"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <StackPanel Orientation="Horizontal">
-        <Button x:Name="btnAñadir" Content="Añadir" Click="btnAñadir_Click"/>
-        <StackPanel Orientation="Horizontal" x:Name="stkRutas"/>
-    </StackPanel>
-
+    <StackPanel Orientation="Horizontal" x:Name="stkRutas" />
 </UserControl>

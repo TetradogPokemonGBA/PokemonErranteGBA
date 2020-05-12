@@ -11,7 +11,9 @@
         <Button x:Name="btnCheck" Content="CheckSaltos" Click="btnCheck_Click" IsEnabled="False" />
         <Button x:Name="btnSave" Content="Save" Click="btnSave_Click" IsEnabled="False" />
 
-            <StackPanel x:Name="stkSaltos" MouseRightButtonDown="lstSaltos_MouseRightButtonDown" CanVerticallyScroll="True"/>
-
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel x:Name="stkSaltos" MouseRightButtonDown="lstSaltos_MouseRightButtonDown"/>
+        </ScrollViewer>
+        
     </StackPanel>
 </UserControl>
