@@ -53,10 +53,11 @@ namespace PokemonErranteGBA
 					Mapa = PokemonErrante.Mapa.Get(Rom);
 					RutasSalto =new object[] { "" }.AfegirValors( PokemonGBAFramework.Core.Mapa.Basic.Bank.Get(Rom, PokemonErrante.Mapa.GetBank(Rom)).Maps);
 					visorRutas.Load(Mapa);
-						miExportarScript.IsEnabled=true;
+						miExportarScript.IsEnabled=!Rom.Edicion.EsRubiOZafiro;
 						cmbPokedex.IsEnabled=true;
 						sePokemonActual.RomActual=Rom;
-						cmbPokedex.ItemsSource=Pokemon.GetOrdenNacional(Rom).Filtra((p)=>p.OrdenGameFreak>0&&p.Descripcion.Altura!=default);
+					sePokemonActual.IsEnabled= !Rom.Edicion.EsRubiOZafiro; 
+					cmbPokedex.ItemsSource=Pokemon.GetOrdenNacional(Rom).Filtra((p)=>p.OrdenGameFreak>0&&p.Descripcion.Altura!=default);
 						
 						cmbPokedex.SelectedIndex=0;
 						switch (Rom.Edicion.Version) {

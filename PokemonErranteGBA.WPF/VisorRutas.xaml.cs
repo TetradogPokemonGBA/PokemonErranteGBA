@@ -89,30 +89,23 @@ namespace PokemonErranteGBA.WPF
                 case PokemonErrante.Mapa.ErrorRutaRepetidaEnLinea: mensaje = "Salto repetido en la misma línea!"; break;
                 case PokemonErrante.Mapa.ErrorSaltoLineaNoEncontrado: mensaje = "Ruta no encontrada como Salto!!"; break;
                 //case PokemonErrante.Mapa.ErrorNoHayNingunaRutaQueApunteAUnSalto:mensaje = "No hay ruta que apunte a un salto!";break;
+                case PokemonErrante.Mapa.ErrorSaltosInsuficientesMinimoTres: mensaje = "Se necesitan como minimo 3 Saltos";break;
                 default: mensaje = "Todo correcto!"; break;
             }
 
             return mensaje;
         }
 
-        private void lstSaltos_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            //if(MessageBox.Show("Estas seguro de querer eliminar este salto?","Atención",MessageBoxButton.YesNo,MessageBoxImage.Question,MessageBoxResult.No)==MessageBoxResult.Yes)
-            //{
-            //    stkSaltos.Children.Remove(e);
-            //}
-        }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            PokemonErrante.Mapa mapa;
-            if (Save().Check != PokemonErrante.Mapa.TodoCorrecto)
+            PokemonErrante.Mapa mapa = Save();
+            if (mapa.Check != PokemonErrante.Mapa.TodoCorrecto)
             {
                 MessageBox.Show(CheckMessage());
             }
             else
             {
-                mapa = Save();
                 PokemonErrante.Mapa.Set(MainWindow.Rom, mapa);
                 Load(mapa);
                 MainWindow.Save();

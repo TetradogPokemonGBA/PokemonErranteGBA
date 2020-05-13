@@ -7,12 +7,18 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <StackPanel>
-        <Button x:Name="btnAñadir" Content="AñadirSalto" Click="btnAñadir_Click" IsEnabled="False" />
-        <Button x:Name="btnCheck" Content="CheckSaltos" Click="btnCheck_Click" IsEnabled="False" />
-        <Button x:Name="btnSave" Content="Save" Click="btnSave_Click" IsEnabled="False" />
-
-        <ScrollViewer VerticalScrollBarVisibility="Auto">
-            <StackPanel x:Name="stkSaltos" MouseRightButtonDown="lstSaltos_MouseRightButtonDown"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+        <Button x:Name="btnAñadir" Content="Añadir" Click="btnAñadir_Click" IsEnabled="False" />
+        <Button x:Name="btnCheck" Content="Check" Click="btnCheck_Click" IsEnabled="False" Grid.Column="1" />
+            <Button x:Name="btnSave" Content="Guardar" Click="btnSave_Click" IsEnabled="False" Grid.Column="2" />
+        </Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" CanContentScroll="True" >
+            <StackPanel x:Name="stkSaltos"/>
         </ScrollViewer>
         
     </StackPanel>
