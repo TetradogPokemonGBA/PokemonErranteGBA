@@ -25,113 +25,123 @@ using PokemonGBAFramework.Core;
 
 namespace PokemonErranteGBA
 {
-	/// <summary>
-	/// Interaction logic for Window1.xaml
-	/// </summary>
-	public partial class MainWindow : Window
-	{
-		public static RomGba Rom { get; set; }
-		public static PokemonErrante.Mapa Mapa { get; set; }
-		public static string FileName { get; set; }
-        public static IEnumerable RutasSalto { get;  set; }
+    /// <summary>
+    /// Interaction logic for Window1.xaml
+    /// </summary>
+    public partial class MainWindow : Window
+    {
+        public static RomGba Rom { get; set; }
+        public static PokemonErrante.Mapa Mapa { get; set; }
+        public static string FileName { get; set; }
+        public static IEnumerable RutasSalto { get; set; }
 
         public MainWindow()
-		{
-			InitializeComponent();
-		}
+        {
+            InitializeComponent();
+        }
 
-		void MiCargar_Click(object sender, RoutedEventArgs e)
-		{
-			Word aux0=new Word(0);
-			OpenFileDialog opn=new OpenFileDialog();
-			opn.Filter="Pokemon GBA|*.gba";
-			if(opn.ShowDialog().GetValueOrDefault())
-			{
-				try{
-					Rom=new RomGba(opn.FileName);
-					FileName = opn.FileName;
-					Mapa = PokemonErrante.Mapa.Get(Rom);
-					RutasSalto =new object[] { "" }.AfegirValors( PokemonGBAFramework.Core.Mapa.Basic.Bank.Get(Rom, PokemonErrante.Mapa.GetBank(Rom)).Maps);
-					visorRutas.Load(Mapa);
-						miExportarScript.IsEnabled=!Rom.Edicion.EsRubiOZafiro;
-						cmbPokedex.IsEnabled=true;
-						sePokemonActual.RomActual=Rom;
-					sePokemonActual.IsEnabled= !Rom.Edicion.EsRubiOZafiro; 
-					cmbPokedex.ItemsSource=Pokemon.GetOrdenNacional(Rom).Filtra((p)=>p.OrdenGameFreak>0&&p.Descripcion.Altura!=default);
-						
-						cmbPokedex.SelectedIndex=0;
-						switch (Rom.Edicion.Version) {
-							case Edicion.Pokemon.Zafiro:
-								Background= System.Windows.Media.Brushes.LightCoral;
-								break;
-							case Edicion.Pokemon.Rubi:
-								Background= System.Windows.Media.Brushes.LightSkyBlue;
-								break;
-						case Edicion.Pokemon.RubiOZafiro:
-							Background = System.Windows.Media.Brushes.LightSkyBlue;
-							break;
-						case Edicion.Pokemon.Esmeralda:
-								Background= System.Windows.Media.Brushes.LightSeaGreen;
-							//	this.Icon=Imagenes.EsmeraldaIco.ToImage().Source;
-								break;
-							case Edicion.Pokemon.RojoFuego:
-								Background= System.Windows.Media.Brushes.LightSalmon;
-								
-								//this.Icon=Imagenes.RojoFuegoIco.ToImage().Source;
-								break;
-							case Edicion.Pokemon.VerdeHoja:
-								Background= System.Windows.Media.Brushes.LightGreen;
-								//this.Icon=Imagenes.VerdeHojaIco.ToImage().Source;
-								break;
-						case Edicion.Pokemon.RojoOVerde:
-							Background = System.Windows.Media.Brushes.LightGreen;
-							//this.Icon=Imagenes.VerdeHojaIco.ToImage().Source;
-							break;
+        void MiCargar_Click(object sender, RoutedEventArgs e)
+        {
+            Word aux0 = new Word(0);
+            OpenFileDialog opn = new OpenFileDialog();
+            opn.Filter = "Pokemon GBA|*.gba";
+            if (opn.ShowDialog().GetValueOrDefault())
+            {
+                try
+                {
+                    Rom = new RomGba(opn.FileName);
+                    FileName = opn.FileName;
+                    Mapa = PokemonErrante.Mapa.Get(Rom);
+                    RutasSalto = new object[] { "" }.AfegirValors(PokemonGBAFramework.Core.Mapa.Basic.Bank.Get(Rom, PokemonErrante.Mapa.GetBank(Rom)).Maps);
+                    if (!Rom.Edicion.EsRubiOZafiro)
+                        visorRutas.Load(Mapa);
 
-					}
-					
-				}catch(Exception m){
-					//MessageBox.Show("Hay problemas para cargar la rom actual...\n"+m.Message,"Atención",MessageBoxButton.OK,MessageBoxImage.Error);
-				}
-				
-			}else if(Rom!=null){
-			//	MessageBox.Show("No se ha cambiado la rom");
-			}else{
-				MessageBox.Show("No se ha cargado nada");
-			}
-		}
-		void MiSobre_Click(object sender, RoutedEventArgs e)
-		{
-			if(MessageBox.Show("Autor: Pikachu240\nLiencia:GNU GPL V3\nInvestigado por  Razhier de Wahack \n¿Quieres ver el código fuente?","Sobre la App",MessageBoxButton.YesNo,MessageBoxImage.Information,MessageBoxResult.Yes)==MessageBoxResult.Yes)
-				new Uri("https://github.com/TetradogPokemonGBA/PokemonErranteGBA").Abrir();
-		}
-		void CmbPokedex_SelectionChanged(object sender, SelectionChangedEventArgs e)
-		{
-			Pokemon pokemonActual=cmbPokedex.SelectedItem as Pokemon;
-			BitmapAnimated frames;
-			if (pokemonActual!=null)
-			{
-				frames = pokemonActual.Sprites.Frontales.GetAnimacionImagenFrontal(pokemonActual.Sprites.PaletaNomal);
-				//frames.RemoveFrame(0);
-				frames.FrameChanged += (s, img) =>
-				{
-					Action act = () => imgPokemon.SetImage(img);
-					Dispatcher.BeginInvoke(act);
-				};
-				frames.Start();
-		
-				sePokemonActual.PokemonActual=new PokemonErrante.Pokemon() { Errante = pokemonActual };
-			}
-		}
-		void MiExportarScript_Click(object sender, RoutedEventArgs e)
-		{
-			SaveFileDialog sfdScriptActual=new SaveFileDialog();
-			if(sfdScriptActual.ShowDialog().GetValueOrDefault())
-				System.IO.File.WriteAllText(sfdScriptActual.FileName+".rbc",sePokemonActual.GetScriptString());
-		}
-		public static void Save()
-		{
-			System.IO.File.WriteAllBytes(MainWindow.FileName, Rom.Data.Bytes);
-		}
-	}
+                    miExportarScript.IsEnabled = !Rom.Edicion.EsRubiOZafiro;
+                    cmbPokedex.IsEnabled = true;
+                    sePokemonActual.RomActual = Rom;
+                    sePokemonActual.IsEnabled = !Rom.Edicion.EsRubiOZafiro;
+                    cmbPokedex.ItemsSource = Pokemon.GetOrdenNacional(Rom).Filtra((p) => p.OrdenGameFreak > 0 && p.Descripcion.Altura != default);
+
+                    cmbPokedex.SelectedIndex = 0;
+                    switch (Rom.Edicion.Version)
+                    {
+                        case Edicion.Pokemon.Zafiro:
+                            Background = System.Windows.Media.Brushes.LightCoral;
+                            break;
+                        case Edicion.Pokemon.Rubi:
+                            Background = System.Windows.Media.Brushes.LightSkyBlue;
+                            break;
+                        case Edicion.Pokemon.RubiOZafiro:
+                            Background = System.Windows.Media.Brushes.LightSkyBlue;
+                            break;
+                        case Edicion.Pokemon.Esmeralda:
+                            Background = System.Windows.Media.Brushes.LightSeaGreen;
+                            //	this.Icon=Imagenes.EsmeraldaIco.ToImage().Source;
+                            break;
+                        case Edicion.Pokemon.RojoFuego:
+                            Background = System.Windows.Media.Brushes.LightSalmon;
+
+                            //this.Icon=Imagenes.RojoFuegoIco.ToImage().Source;
+                            break;
+                        case Edicion.Pokemon.VerdeHoja:
+                            Background = System.Windows.Media.Brushes.LightGreen;
+                            //this.Icon=Imagenes.VerdeHojaIco.ToImage().Source;
+                            break;
+                        case Edicion.Pokemon.RojoOVerde:
+                            Background = System.Windows.Media.Brushes.LightGreen;
+                            //this.Icon=Imagenes.VerdeHojaIco.ToImage().Source;
+                            break;
+
+                    }
+
+                }
+                catch (Exception m)
+                {
+                    //MessageBox.Show("Hay problemas para cargar la rom actual...\n"+m.Message,"Atención",MessageBoxButton.OK,MessageBoxImage.Error);
+                }
+
+            }
+            else if (Rom != null)
+            {
+                //	MessageBox.Show("No se ha cambiado la rom");
+            }
+            else
+            {
+                MessageBox.Show("No se ha cargado nada");
+            }
+        }
+        void MiSobre_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("Autor: Pikachu240\nLiencia:GNU GPL V3\nInvestigado por  Razhier de Wahack \n¿Quieres ver el código fuente?", "Sobre la App", MessageBoxButton.YesNo, MessageBoxImage.Information, MessageBoxResult.Yes) == MessageBoxResult.Yes)
+                new Uri("https://github.com/TetradogPokemonGBA/PokemonErranteGBA").Abrir();
+        }
+        void CmbPokedex_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Pokemon pokemonActual = cmbPokedex.SelectedItem as Pokemon;
+            BitmapAnimated frames;
+            if (pokemonActual != null)
+            {
+                frames = pokemonActual.Sprites.Frontales.GetAnimacionImagenFrontal(pokemonActual.Sprites.PaletaNomal);
+                //frames.RemoveFrame(0);
+                frames.FrameChanged += (s, img) =>
+                {
+                    Action act = () => imgPokemon.SetImage(img);
+                    Dispatcher.BeginInvoke(act);
+                };
+                frames.Start();
+
+                sePokemonActual.PokemonActual = new PokemonErrante.Pokemon() { Errante = pokemonActual };
+            }
+        }
+        void MiExportarScript_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog sfdScriptActual = new SaveFileDialog();
+            if (sfdScriptActual.ShowDialog().GetValueOrDefault())
+                System.IO.File.WriteAllText(sfdScriptActual.FileName + ".rbc", sePokemonActual.GetScriptString());
+        }
+        public static void Save()
+        {
+            System.IO.File.WriteAllBytes(MainWindow.FileName, Rom.Data.Bytes);
+        }
+    }
 }

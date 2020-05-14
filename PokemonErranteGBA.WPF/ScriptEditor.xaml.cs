@@ -96,7 +96,7 @@ namespace PokemonErranteGBA
 		
 		int BuscaScript()
 		{
-			int offset = RomActual.Data.SearchArray(PokemonErrante.GetScript(romActual.Edicion, PokemonActual).GetDeclaracion(RomActual));
+			int offset = RomActual.Data.SearchArray(PokemonErrante.GetScript(romActual, PokemonActual).GetDeclaracion(RomActual));
 			if (offset > 0) {
 				txtOffset.Text = (Hex)offset;
 				btnInsertarQuitarScriptBasico.Content = ESTA;
@@ -122,7 +122,7 @@ namespace PokemonErranteGBA
 		public Script GetScript()
 		{
 			SetEstadoPokemon();
-			return PokemonErrante.GetScript(romActual.Edicion,PokemonActual);
+			return PokemonErrante.GetScript(romActual,PokemonActual);
 		}
 		void BtnVerScript_Click(object sender, RoutedEventArgs e)
 		{
